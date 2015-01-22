@@ -66,16 +66,6 @@ public class ApkGfan implements PageProcessor{
 			appType = "apk";
 				String venderString = page.getHtml().xpath("//div[@class='app-info']/p[2]/text()").toString();
 			appvender = venderString.substring(venderString.indexOf("：")+1,venderString.length());
-			
-			System.out.println("appName="+appName);
-			System.out.println("appDetailUrl="+appDetailUrl);
-			System.out.println("appDownloadUrl="+appDownloadUrl);
-			System.out.println("osPlatform="+osPlatform);
-			System.out.println("appVersion="+appVersion);
-			System.out.println("appSize="+appSize);
-			System.out.println("appUpdateDate="+appUpdateDate);
-			System.out.println("appType="+appType);
-			System.out.println("appvender="+appvender);
 		
 			if(appName != null && appDownloadUrl != null){
 				apk = new Apk(appName,appDetailUrl,appDownloadUrl,osPlatform ,appVersion,appSize,appUpdateDate,appType,null);

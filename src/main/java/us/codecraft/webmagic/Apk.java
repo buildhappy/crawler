@@ -16,12 +16,11 @@ public class Apk {
 	private String appSize;
 	private String appUpdateDate;
 	private String appType;
+	private String appDownloadedTime;
+	private String cookie;
 	private String appCrawlTime;//the timestamp of crawling app
 	private String channelId;//the channel id of app
 
-
-	private String cookie;
-
 	/**
 	 * create an apk object with the following parameter
 	 * @param appName
@@ -32,13 +31,14 @@ public class Apk {
 	 * @param appSize
 	 * @param appUpdateDate
 	 * @param appType
+	 * @param appDownloadedTime
 	 * @param cookie
 	 */
 	public Apk(String appName,String appDetailUrl,String appDownloadUrl,String osPlatform ,
-			String appVersion,String appSize,String appUpdateDate, String appType,String cookie){	
+			String appVersion,String appSize,String appUpdateDate, String appType,String appDownloadedTime ,String cookie){	
 		init();
 		create(appName,appDetailUrl, appDownloadUrl, osPlatform,appVersion,
-				appSize,appUpdateDate, appType,cookie);
+				appSize,appUpdateDate, appType,appDownloadedTime,cookie);
 	}
 	
 	/**
@@ -50,13 +50,32 @@ public class Apk {
 	 * @param appVersion
 	 * @param appSize
 	 * @param appUpdateDate
+	 * @param appDownloadedTime
 	 * @param appType
 	 */
 	public Apk(String appName,String appDetailUrl,String appDownloadUrl,String osPlatform ,
-			String appVersion,String appSize,String appUpdateDate, String appType){
+			String appVersion,String appSize,String appUpdateDate, String appType , String appDownloadedTime){
 		init();
 		create(appName,appDetailUrl, appDownloadUrl, osPlatform,appVersion,
-				appSize,appUpdateDate, appType,null);
+				appSize,appUpdateDate, appType , appDownloadedTime,null);
+	}
+	
+	/**
+	 * create an apk object with the following parameter
+	 * @param appName
+	 * @param appDetailUrl
+	 * @param appDownloadUrl
+	 * @param osPlatform
+	 * @param appVersion
+	 * @param appSize
+	 * @param appUpdateDate
+	 * @param appDownloadedTime
+	 */
+	public Apk(String appName,String appDetailUrl,String appDownloadUrl,String osPlatform ,
+			String appVersion,String appSize,String appUpdateDate , String appDownloadedTime){
+		init();
+		create(appName,appDetailUrl, appDownloadUrl, osPlatform,appVersion,
+				appSize,appUpdateDate, appDownloadedTime,null,null);
 	}
 	
 	/**
@@ -70,12 +89,11 @@ public class Apk {
 	 * @param appUpdateDate
 	 */
 	public Apk(String appName,String appDetailUrl,String appDownloadUrl,String osPlatform ,
-			String appVersion,String appSize,String appUpdateDate){
+			String appVersion,String appSize , String appUpdateDate){
 		init();
 		create(appName,appDetailUrl, appDownloadUrl, osPlatform,appVersion,
-				appSize,appUpdateDate, null,null);
+				appSize,appUpdateDate,null, null,null);
 	}
-	
 	/**
 	 * create an apk object with the following parameter
 	 * @param appName
@@ -88,35 +106,15 @@ public class Apk {
 	public Apk(String appName,String appDetailUrl,String appDownloadUrl,String osPlatform ,
 			String appVersion,String appSize){
 		init();
-		create(appName,appDetailUrl, appDownloadUrl, osPlatform,appVersion,
-				appSize,null, null,null);
-	}
-	public String getChannelId() {
-		return channelId;
-	}
-
-	public void setChannelId(String channelId) {
-		this.channelId = channelId;
-	}
-	/**
-	 * create an apk object with the following parameter
-	 * @param appName
-	 * @param appDetailUrl
-	 * @param appDownloadUrl
-	 * @param osPlatform
-	 * @param appVersion
-	 */
-	public Apk(String appName,String appDetailUrl,String appDownloadUrl,String osPlatform ,
-			String appVersion){
-		init();
-		create(appName,appDetailUrl, appDownloadUrl, osPlatform,appVersion,
+		create(appName,appDetailUrl, appDownloadUrl, osPlatform,appVersion,appSize,
 				null,null, null,null);
 	}
 	private void init(){
 		this.appCrawlTime = String.valueOf(System.currentTimeMillis());
 	}
 	public void create(String appName,String appDetailUrl,String appDownloadUrl,String osPlatform ,
-			String appVersion,String appSize,String appUpdateDate, String appType,String cookie){
+			String appVersion,String appSize,String appUpdateDate, String appType,String appDownloadedTime , String cookie){
+		init();
 		this.appName = appName;
 		this.appVersion = appVersion;
 		this.appType = appType;
@@ -125,6 +123,7 @@ public class Apk {
 		this.osPlatform = osPlatform;
 		this.appDetailUrl = appDetailUrl;
 		this.appDownloadUrl = appDownloadUrl;
+		this.appDownloadedTime = appDownloadedTime;
 		this.cookie = cookie;
 	}
 
@@ -197,6 +196,21 @@ public class Apk {
 
 	public void setAppCrawlTime(String appCrawlTime) {
 		this.appCrawlTime = appCrawlTime;
+	}
+	public String getChannelId() {
+		return channelId;
+	}
+
+	public void setChannelId(String channelId) {
+		this.channelId = channelId;
+	}
+	
+	public String getAppDownloadedTime() {
+		return appDownloadedTime;
+	}
+
+	public void setAppDownloadedTime(String appDownloadedTime) {
+		this.appDownloadedTime = appDownloadedTime;
 	}
 	
 	public String getCookie() {

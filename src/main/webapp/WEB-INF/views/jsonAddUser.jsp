@@ -35,6 +35,11 @@
 	<h2>json添加用户</h2>
 	姓名：<input type="text" id="name" name="name" />
 	密码：<input type="text" id="password" name="password"></input>
-	<input type="button" id="add" value="添加">
+	<input type="button" id="add" value="添加" h>
+	<form action="/crawler/tasktest/123456" method="post">
+  		First name: <input type="text" name="fname" />
+  		Last name: <input type="text" name="lname" />
+  		<input type="submit" value="Submit" />
+	</form>
 </body>
 </html>

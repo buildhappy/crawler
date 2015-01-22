@@ -2,6 +2,8 @@ package com.appCrawler.controller;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
@@ -9,6 +11,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,9 +53,15 @@ public class ControllerCenter{
 
 	//接收任务
 	@RequestMapping(value="/task/{taskId}" ,consumes="application/json")
-	public String receiveTask(@PathVariable String taskId , @RequestBody String body){
+	public String receiveTask(@PathVariable String taskId , @RequestBody String body , HttpServletRequest request){
 		System.out.println("taskId:" + taskId);
 		System.out.println("body:" + body);
+		try{
+			InputStream in = request.getInputStream();
+			System.out.println(in.toString());
+		}catch(Exception e){
+			
+		}
 		String channels = "6";
 		List<String> channelsList = getChannelsFromString(channels);
 		String channelId;
@@ -64,17 +75,30 @@ public class ControllerCenter{
 	}
 	
 	//接收任务
+	@SuppressWarnings("deprecation")
 	@RequestMapping(value="/tasktest/{taskId}")
-	public String receiveTask(@PathVariable String taskId){
+	public String receiveTask(@PathVariable String taskId , HttpServletRequest request){
 		System.out.println("taskId:" + taskId);
 		String channels = "6";
 		List<String> channelsList = getChannelsFromString(channels);
 		String channelId;
 		String keyword = null;
 		Iterator<String> it = channelsList.iterator();
+		try{
+			ByteArrayOutputStream outSteam = new ByteArrayOutputStream();  
+			InputStream in = request.getInputStream();
+			byte[] buffer = new byte[1024];  
+			int len = -1;  
+			while ((len = in.read(buffer)) != -1) {  
+				outSteam.write(buffer, 0, len);
+			}
+			System.out.println(new String(outSteam.toByteArray()));
+		}catch(Exception e){
+			
+		}
 		while(it.hasNext()){
 			channelId = it.next();
-			threadPool.execute(new SpiderTrigger(taskId , channelId , keyword));
+			//threadPool.execute(new SpiderTrigger(taskId , channelId , keyword));
 		}
 		return "adddone";
 	}
